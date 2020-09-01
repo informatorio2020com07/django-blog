@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block headtitle %}
+    Posts
+{% endblock %}
+
+{%block contenido%}
+<div class="row">
+    
+    <form class="col s12" method="POST" enctype="multipart/form-data">
+
+        {% csrf_token %}
+
+        <div class="row">
+            <div class="input-field col s12">
+                {{ form.titulo }}
+                <label for="id_titulo">Titulo</label>
+            </div>            
+        </div>
+
+
+          <div class="row">
+            <div class="input-field col s12">
+              {{ form.contenido }}
+              <label for="id_contenido">Contenido</label>
+            </div>
+          </div>
+
+          <div class="row">
+              <div class="file-field input-field col s6">
+                <div class="btn">
+                  <span>Imagen</span>
+                  {{ form.imagen }}
+                </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text">
+                </div>
+              </div>
+                <div class="col s6">
+                  <label>
+                    {{ form.permitir_comentarios }}
+                    <span>Permitir Comentarios</span>
+                  </label>        
+                </div>
+          </div>
+
+
+        
+
+
+        
+        
+
+      <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+        <button type="submit" class="btn-floating btn-large red">
+          <i class="large material-icons">add</i>
+        </button>
+      </div>            
+    </form>
+
+</div>
+ 
+{%endblock%}
