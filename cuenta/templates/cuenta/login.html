@@ -1,3 +1,11 @@
+{% extends "base.html" %}
+
+{% block headtitle %}
+	Iniciar Sesión - BLOG
+{% endblock %}
+
+{%block contenido%}
+
 <h1>Iniciar Sesión</h1>
 
 <form method="POST">
@@ -7,3 +15,5 @@
 </form>
 
 <a href="{% url 'nuevo_usuario' %}">Registrarse</a>
+
+{%endblock%}

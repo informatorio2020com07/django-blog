@@ -19,11 +19,18 @@
             <nav>
                 <div class="nav-wrapper">
                   <a href="#!" class="brand-logo right">ImgPerfil</a>
+
                   <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                   <ul class="left hide-on-med-and-down">
                     <li><a href="{% url 'index' %}">Inicio</a></li>
                     <li ><a href="{% url 'new_post' %}">Crear</a></li>
                     <li><a href="#">Categorias</a></li>
+
+                    {% if request.user.is_authenticated %}
+                    <li><a href="{% url 'cerrar_sesion' %}">Cerrar Sesión</a></li>
+                    {% else %}
+                    <li><a href="{% url 'iniciar_sesion' %}">Iniciar Sesión</a></li>
+                    {% endif %}
                   </ul>
                 </div>
             </nav>

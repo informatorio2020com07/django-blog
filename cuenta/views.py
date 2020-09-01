@@ -24,7 +24,7 @@ def nuevo_usuario(request):
             user = form.save()
             if user is not None:
                 login(request,user)
-                return redirect("bienvenido")
+                return redirect("index")
     return render(request, "cuenta/nuevo_usuario.html",{"form":form})
 
 def iniciar_sesion(request):
@@ -37,7 +37,7 @@ def iniciar_sesion(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request,user)
-                return redirect("bienvenido")
+                return redirect("index")
     return render(request, "cuenta/login.html", {"form":form})
 
 def cerrar_sesion(request):
