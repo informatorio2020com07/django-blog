@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post
+from .models import Post, Comentario
 
 class PostForm(forms.ModelForm):
     class Meta:
@@ -12,3 +12,9 @@ class PostForm(forms.ModelForm):
         self.fields["contenido"].widget.attrs.update({'class' : 'materialize-textarea','placeholder' : 'Escriba su post', 'type' : 'text'})
         self.fields["imagen"].widget.attrs.update({'class' : 'texto-rojo','placeholder' : 'ingrese su nombre', 'type' : 'file'})
         self.fields["permitir_comentarios"].widget.attrs.update({"type":"checkbox", "checked":"checked"})
+
+
+class ComentarioForm(forms.ModelForm):
+    class Meta:
+        model = Comentario
+        fields = ('texto',)
