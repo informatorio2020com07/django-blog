@@ -5,7 +5,8 @@ from django.contrib.auth import logout
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 #crear usuario
-from django.contrib.auth.forms import UserCreationForm
+from .forms import UserCreationForm
+#fin crear usuario
 
 def bienvenido(request):
     return render(request,"cuenta/bienvenido.html", {})
@@ -24,7 +25,7 @@ def nuevo_usuario(request):
             user = form.save()
             if user is not None:
                 login(request,user)
-                return redirect("bienvenido")
+                return redirect("index")
     return render(request, "cuenta/nuevo_usuario.html",{"form":form})
 
 def iniciar_sesion(request):
@@ -37,7 +38,7 @@ def iniciar_sesion(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request,user)
-                return redirect("bienvenido")
+                return redirect("index")
     return render(request, "cuenta/login.html", {"form":form})
 
 def cerrar_sesion(request):

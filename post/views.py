@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from post.models import Post
 from post.forms import PostForm
+
 # Create your views here.
 def index(request):
     posts = Post.objects.all()[0:12]

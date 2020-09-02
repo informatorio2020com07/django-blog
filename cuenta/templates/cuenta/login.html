@@ -1,9 +1,28 @@
-<h1>Iniciar Sesión</h1>
+{% extends 'base.html' %}
+{% block titlehead %}
+        Iniciar sesión
+    {% endblock %}
 
+{% block contenido %}
+<h1>Iniciar Sesión</h1>
+<div class="row">
 <form method="POST">
     {% csrf_token %}
-    {{ form }}
+    <div class="row">
+        <div class="input-field col s6">
+            {{form.username}}
+            <label for="id_username">Nombre</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s6">
+            {{ form.password }}
+            <label class="active" for="id_password">Contraseña</label>
+        </div>
     <button type="submit">Iniciar Sesion</button>
-</form>
-
+</form>.
+</div>
+{% if user.is_anonymous %}
 <a href="{% url 'nuevo_usuario' %}">Registrarse</a>
+{% endif %}
+{% endblock %}

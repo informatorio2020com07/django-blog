@@ -1,9 +1,54 @@
+{% extends 'base.html' %}
+{% block titlehead %}
+        Crear Usuario
+    {% endblock %}
+
+{% block contenido %}
 <h1>Nuevo Usuario</h1>
-
-<form method="POST">
-    {% csrf_token %}
-    {{ form }}
-    <button type="submit">Registrarme</button>
-</form>
-
+<div class="row">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="input-field col s6">
+              {{ form.username }}
+              <label class="active" for="id_username">Nombre de Usuario</label>
+              <label for="helptext">{{form.renewal_date.help_text}}</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s6">
+              {{ form.first_name }}
+              <label class="active" for="id_firstname">Nombre</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s6">
+              {{ form.last_name }}
+              <label class="active" for="id_lastname">Apellido</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s6">
+              {{ form.email }}
+              <label class="active" for="id_email">Email</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s6">
+              {{ form.password1 }}
+              <label class="active" for="id_password1">Contraseña</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s6">
+              {{ form.password2 }}
+              <label class="active" for="id_password2">Repetir Contraseña</label>
+            </div>
+        </div>
+        <button type="submit">Registrarme</button>
+    </form>
+</div>
+{% if request.user.is_authenticated %}
 <a href="{% url 'iniciar_sesion' %}">Iniciar Sesion</a>
+{% endif %}
+{% endblock %}
