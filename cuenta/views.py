@@ -5,7 +5,8 @@ from django.contrib.auth import logout
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 #crear usuario
-from django.contrib.auth.forms import UserCreationForm
+from .forms import UserCreationForm
+#fin crear usuario
 
 def bienvenido(request):
     return render(request,"cuenta/bienvenido.html", {})
@@ -42,4 +43,4 @@ def iniciar_sesion(request):
 
 def cerrar_sesion(request):
     logout(request)
-    return redirect("bienvenido")
+    return redirect("index")
