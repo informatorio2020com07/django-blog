@@ -49,9 +49,12 @@
 
                 <ul class="collection">
                   {% for comentario in comentarios %}
-                    <li class="collection-item avatar z-depth-5">
-                      <img src="#" alt="" class="circle">
-                      <span class="title">{{comentario.usuario.username}}:</span>
+                    <li class="collection-item avatar">
+                      <img src="{{ comentario.usuario.foto.url }}" alt="" class="circle">
+                      <a href="{% url 'ver_perfil' comentario.usuario.id %}">
+                        <span class="title">{{comentario.usuario.username}}:</span>
+                      </a>
+                      
                       <p>{{comentario.texto}}
                       </p>
                       <p>{{comentario.fecha_creacion}}

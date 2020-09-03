@@ -6,45 +6,9 @@
 {% block contenido %}
 <h1>Nuevo Usuario</h1>
 <div class="row">
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        <div class="row">
-            <div class="input-field col s6">
-              {{ form.username }}
-              <label class="active" for="id_username">Nombre de Usuario</label>
-              <label for="helptext">{{form.renewal_date.help_text}}</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s6">
-              {{ form.first_name }}
-              <label class="active" for="id_firstname">Nombre</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s6">
-              {{ form.last_name }}
-              <label class="active" for="id_lastname">Apellido</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s6">
-              {{ form.email }}
-              <label class="active" for="id_email">Email</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s6">
-              {{ form.password1 }}
-              <label class="active" for="id_password1">Contraseña</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s6">
-              {{ form.password2 }}
-              <label class="active" for="id_password2">Repetir Contraseña</label>
-            </div>
-        </div>
+        {{ form }}
         <button type="submit">Registrarme</button>
     </form>
 </div>

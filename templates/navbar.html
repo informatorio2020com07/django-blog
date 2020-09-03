@@ -1,7 +1,7 @@
 <nav>
     <div class="nav-wrapper">
         {% if request.user.is_authenticated %}
-          <a href="#" class="brand-logo right">{{request.user.username}}</a>
+          <a href="{% url 'ver_perfil' request.user.id %}" class="brand-logo right"><img class="circle foto-perfil-esquina" src="{{ request.user.foto.url }}"></a>
         {% else %}
           <a href="{% url 'iniciar_sesion' %}" class="brand-logo right">Iniciar Sesión</a>
         {% endif%}

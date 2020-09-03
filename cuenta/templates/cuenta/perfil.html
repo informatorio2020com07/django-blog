@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block titlehead %}
+    Perfil: {{ perfil.username }}
+{% endblock %}
+
+{% block contenido %}
+    Perfil: {{ perfil.username }}
+    <img src="{{ perfil.foto.url }}">
+
+    {% if request.user == perfil%}
+        <button>Editar</button>
+    {% else %}
+        <button>otra cosa</button>
+    {% endif %}
+{% endblock %}
