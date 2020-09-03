@@ -21,11 +21,34 @@
                     <div class="card-action">
                       <a href="#">Like</a>
                       <a href="#">Dislike</a>
+                      <span>Creador: {{ post.usuario.username }}</span>
                     </div>
                   </div>
                 </div>
                 <!-- fin post previa -->
             </div>
+
+            <div class="comentar">
+              <form method="POST" action="{% url 'comentar' post.id %}">
+                {% csrf_token %}
+                {{ form_comentario }}
+                <button type="submit">Comentar</button>
+              </form>
+
+            </div>
+
+            <div class="comentario">
+              <div class="row">
+                <h1>Comentarios</h1>
+              </div>
+              {% for comentario in post.comentario_set.all %}
+                <div class="row">
+                  <p>{{comentario.usuario.username}}: {{comentario.texto}}</p>
+                </div>
+              {% endfor%}
+            </div>
+
+
             <div class="row">
                 <h6>mas del autor</h6>
             </div>
