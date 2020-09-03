@@ -48,11 +48,13 @@
               </div>
 
                 <ul class="collection">
-                  {% for comentario in post.comentario_set.all %}
+                  {% for comentario in comentarios %}
                     <li class="collection-item avatar z-depth-5">
                       <img src="#" alt="" class="circle">
-                      <span class="title">{{comentario.usuario.username}}</span>
+                      <span class="title">{{comentario.usuario.username}}:</span>
                       <p>{{comentario.texto}}
+                      </p>
+                      <p>{{comentario.fecha_creacion}}
                       </p>
                     </li>
                   {% endfor%}

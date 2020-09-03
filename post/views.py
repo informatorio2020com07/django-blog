@@ -17,10 +17,12 @@ def show_post(request,id):
     usuario = post.usuario
     lista_mas_post = Post.objects.filter(usuario_id=usuario.id)
     form_comentario = ComentarioForm()
+    comentarios = post.comentario_set.all().order_by("-fecha_creacion")
     contexto = {
         "post":post,
         "mas_post":lista_mas_post,
-        "form_comentario":form_comentario
+        "form_comentario":form_comentario,
+        "comentarios":comentarios,
         }
     template = "post/post.html"
     return render(request, template, contexto)
