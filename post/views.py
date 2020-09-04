@@ -91,3 +91,11 @@ def like(request,id):
         califi.save()
     return redirect("post", post.id)
 
+@login_required
+def borrar_post(request, id):
+    post = Post.objects.get(pk=id)
+    if post.usuario == request.user:
+        post.delete()
+        return redirect("perfil", request.user.id)
+    else:
+        return redirect("index")

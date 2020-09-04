@@ -9,4 +9,5 @@ path("post/new>", views.new_post,name="new_post"),
 path("post/<int:id>/comentar", views.comentar, name="comentar"),
 path("post/categoria/<int:id>", views.show_categoria,name="show_categoria"),
 path("post/<int:id>/like", views.like, name="like"),
+path("post/<int:id>/borrar", views.borrar_post, name="borrar_post")
 ]
