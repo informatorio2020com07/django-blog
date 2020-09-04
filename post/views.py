@@ -74,15 +74,16 @@ def like(request,id):
     post=Post.objects.get(pk=id)
     print(post.id)
     print(request.user.id)
-    cali=Calificacion_post.objects.filter(post=id)
+    cali=Calificacion_post.objects.filter(post=post)
     flag=True
     for x in cali:
-        if x.observador==request.user.id:
+        if x.observador==request.user:
             flag=False
     if flag:
-        post=post
-        cali.calificacion=1
-        cali.observador=request.user.id
-        cali.save()
+        califi = Calificacion_post()
+        califi.post=post
+        califi.calificacion=1
+        califi.observador=request.user
+        califi.save()
     return redirect("post", post.id)
 

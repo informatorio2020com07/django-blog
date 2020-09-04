@@ -20,6 +20,12 @@ class Post(models.Model):
     def __str__(self):
         return self.titulo
 
+    def puntaje(self):
+        puntaje = 0
+        for x in self.calificacion_post_set.all():
+            puntaje += x.calificacion
+        return puntaje
+
 class Comentario(models.Model):
     post=models.ForeignKey(Post, on_delete = models.CASCADE)
     usuario=models.ForeignKey(Perfil, on_delete = models.SET_NULL, null=True)
