@@ -53,14 +53,17 @@ def new_post(request):
 @login_required
 def comentar(request,id):
     post=Post.objects.get(pk=id)
-    if request.method == "POST":
-        form = ComentarioForm(request.POST)
-        if form.is_valid():
-            comentario = form.save(commit=False)
-            comentario.usuario = request.user
-            comentario.post = post
-            comentario.save()
-            return redirect("post", post.id)
+    if post.permitir_comentarios:
+        if request.method == "POST":
+            form = ComentarioForm(request.POST)
+            if form.is_valid():
+                comentario = form.save(commit=False)
+                comentario.usuario = request.user
+                comentario.post = post
+                comentario.save()
+                return redirect("post", post.id)
+    else:
+        return redirect("post", post.id)
 
 def show_categoria(request,id):
     categorias = Categoria.objects.all()

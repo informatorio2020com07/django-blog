@@ -39,48 +39,49 @@
                 </div>
                 <!-- fin post previa -->
             </div>
-
-            <div class="row comentarios">
-              <div class="comentar">
-                <form method="POST" action="{% url 'comentar' post.id %}">
-                  {% csrf_token %}
-                  <div class="row">
-                    <div class="input-field col s12">
-                      {{ form_comentario.texto }}
-                      <label for="id_text">Comentario:</label>
+            {% if post.permitir_comentarios %}
+              <div class="row comentarios">
+                <div class="comentar">
+                  <form method="POST" action="{% url 'comentar' post.id %}">
+                    {% csrf_token %}
+                    <div class="row">
+                      <div class="input-field col s12">
+                        {{ form_comentario.texto }}
+                        <label for="id_text">Comentario:</label>
+                      </div>
                     </div>
+                    <div class="row center-align">
+                      <button class="btn waves-effect waves-light" type="submit" name="action">Comentar
+                          <i class="material-icons right">send</i>
+                      </button>
                   </div>
-                  <div class="row center-align">
-                    <button class="btn waves-effect waves-light" type="submit" name="action">Comentar
-                        <i class="material-icons right">send</i>
-                    </button>
+                    
+                  </form>
                 </div>
-                  
-                </form>
-              </div>
 
-                <ul class="collection">
-                  {% for comentario in comentarios %}
-                    <li class="collection-item avatar">
-                      {% if comentario.usuario.foto %}
-                        <img src="{{ comentario.usuario.foto.url }}" alt="foto de perfil" class="circle">
-                        {% else %}
-                        <a href="{% url 'ver_perfil' request.user.id %}" class="brand-logo right"><img class="circle foto-perfil-esquina" src="{% static 'img/pordefecto.jpg' %}" alt="archivo por defecto"></a>
-                      {% endif %}
-                        <a href="{% url 'ver_perfil' comentario.usuario.id %}">
-                        <span class="title">
-                        {{comentario.usuario.username}}:</span>
-                        </a>
-                      
-                      <p>{{comentario.texto}}
-                      </p>
-                      <p>{{comentario.fecha_creacion}}
-                      </p>
-                    </li>
-                  {% endfor%}
-                </ul>              
-            </div>
-   
+                  <ul class="collection">
+                    {% for comentario in comentarios %}
+                      <li class="collection-item avatar">
+                        {% if comentario.usuario.foto %}
+                          <img src="{{ comentario.usuario.foto.url }}" alt="foto de perfil" class="circle">
+                          {% else %}
+                          <a href="{% url 'ver_perfil' request.user.id %}" class="brand-logo right"><img class="circle foto-perfil-esquina" src="{% static 'img/pordefecto.jpg' %}" alt="archivo por defecto"></a>
+                        {% endif %}
+                          <a href="{% url 'ver_perfil' comentario.usuario.id %}">
+                          <span class="title">
+                          {{comentario.usuario.username}}:</span>
+                          </a>
+                        
+                        <p>{{comentario.texto}}
+                        </p>
+                        <p>{{comentario.fecha_creacion}}
+                        </p>
+                      </li>
+                    {% endfor%}
+                  </ul>              
+              </div>
+            {% endif %}
+            
             <div class="divider"></div>
 
             <div class="row">
