@@ -1,5 +1,6 @@
-{% load static %}
+
 <!DOCTYPE html>
+{% load static %}
 <html>
     <head>
         <title>
@@ -8,31 +9,16 @@
           {% endblock %}          
         </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<link rel="stylesheet" type="text/css" href="{% static 'css/materialize.min.css'%}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/materialize.min.css'%}">
+
         <link rel="stylesheet" type="text/css" href="{% static 'css/style.css'%}">
+        
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
-
     <body>
 
         <header>
-            <nav>
-                <div class="nav-wrapper">
-                  <a href="#!" class="brand-logo right">ImgPerfil</a>
-                  <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-                  <ul class="left hide-on-med-and-down">
-                    <li><a href="{% url 'index' %}">Inicio</a></li>
-                    <li ><a href="{% url 'new_post' %}">Crear</a></li>
-                    <li><a href="#">Categorias</a></li>
-                  </ul>
-                </div>
-            </nav>
-
-            <ul class="sidenav" id="mobile-demo">
-                <li><a href="{% url 'index' %}">Inicio</a></li>
-                <li><a href="{% url 'new_post' %}">Crear</a></li>
-                <li><a href="#">Categorias</a></li>
-            </ul>     
+          {% include "navbar.html" with comentarios=comentarios %}  
         </header>
 
         <div class="container">
@@ -47,6 +33,7 @@
 
     </body>
     <script type="text/javascript" src="{% static 'js/materialize.min.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/mostrar_ocultar.js'%}"></script>
     <script type="text/javascript">
           document.addEventListener('DOMContentLoaded', function() {
             M.AutoInit();

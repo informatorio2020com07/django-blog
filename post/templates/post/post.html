@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block headtitle %}
     Post: {{post.titulo}}
 {% endblock %}
@@ -11,43 +11,75 @@
                   <div class="card">
                     <div class="card-image">
                       <img src="{{post.imagen.url}}">
-                      <span class="card-title black-text">{{post.titulo}}</span>
                     </div>
                     <div class="card-content">
-                      <p>
+                      <span class="card-title black-text">{{post.titulo}}</span>
+                      <p class="flow-text">
                         {{post.contenido}}
                       </p>
                     </div>
                     <div class="card-action">
-                      <a href="#">Like</a>
-                      <a href="#">Dislike</a>
-                      <span>Creador: {{ post.usuario.username }}</span>
+                      <a href="{% url 'like' post.id %}">
+                        <img onClick="desaparecer_like();" id=like src="{% static 'img/like.jpg'%}" alt="">
+                      </a>
+                      <a href="#">
+                        <img  onClick="desaparecer_like()" id=dislike src="{% static 'img/Dislike.jpg'%}" alt="">
+                      </a>
+                      <a href="#"><img id=like_active src="{% static 'img/like_active.jpg'%}" alt=""></a>
+                      <a href="#"><img id=dislike_active src="{% static 'img/Dislike_active.jpg'%}" alt=""></a>
+                      <br>
+                      <br>
+                      <span><h6>Creador: {{ post.usuario.username }}</h6></span>
+                      <br>
+                      <span><h6>Categoria: {{ post.categoria.titulo }}</h6></span>
                     </div>
                   </div>
                 </div>
                 <!-- fin post previa -->
             </div>
 
-            <div class="comentar">
-              <form method="POST" action="{% url 'comentar' post.id %}">
-                {% csrf_token %}
-                {{ form_comentario }}
-                <button type="submit">Comentar</button>
-              </form>
-
-            </div>
-
-            <div class="comentario">
-              <div class="row">
-                <h1>Comentarios</h1>
-              </div>
-              {% for comentario in post.comentario_set.all %}
-                <div class="row">
-                  <p>{{comentario.usuario.username}}: {{comentario.texto}}</p>
+            <div class="row comentarios">
+              <div class="comentar">
+                <form method="POST" action="{% url 'comentar' post.id %}">
+                  {% csrf_token %}
+                  <div class="row">
+                    <div class="input-field col s12">
+                      {{ form_comentario.texto }}
+                      <label for="id_text">Comentario:</label>
+                    </div>
+                  </div>
+                  <div class="row center-align">
+                    <button class="btn waves-effect waves-light" type="submit" name="action">Comentar
+                        <i class="material-icons right">send</i>
+                    </button>
                 </div>
-              {% endfor%}
-            </div>
+                  
+                </form>
+              </div>
 
+                <ul class="collection">
+                  {% for comentario in comentarios %}
+                    <li class="collection-item avatar">
+                      {% if comentario.usuario.foto %}
+                        <img src="{{ comentario.usuario.foto.url }}" alt="foto de perfil" class="circle">
+                        {% else %}
+                        <a href="{% url 'ver_perfil' request.user.id %}" class="brand-logo right"><img class="circle foto-perfil-esquina" src="{% static 'img/pordefecto.jpg' %}" alt="archivo por defecto"></a>
+                      {% endif %}
+                        <a href="{% url 'ver_perfil' comentario.usuario.id %}">
+                        <span class="title">
+                        {{comentario.usuario.username}}:</span>
+                        </a>
+                      
+                      <p>{{comentario.texto}}
+                      </p>
+                      <p>{{comentario.fecha_creacion}}
+                      </p>
+                    </li>
+                  {% endfor%}
+                </ul>              
+            </div>
+   
+            <div class="divider"></div>
 
             <div class="row">
                 <h6>mas del autor</h6>

@@ -12,36 +12,39 @@
         {% csrf_token %}
 
         <div class="row">
-            <div class="input-field col s12">
-                {{ form.titulo }}
-                <label for="id_titulo">Titulo</label>
-            </div>            
+          <div class="input-field col s12">
+            {{ form.titulo }}
+            <label for="id_titulo">Titulo</label>
+          </div>            
         </div>
 
 
-          <div class="row">
-            <div class="input-field col s12">
-              {{ form.contenido }}
-              <label for="id_contenido">Contenido</label>
-            </div>
+        <div class="row">
+          <div class="input-field col s12">
+            {{ form.contenido }}
+            <label for="id_contenido">Contenido</label>
           </div>
-
-          <div class="row">
-              <div class="file-field input-field col s6">
-                <div class="btn">
-                  <span>Imagen</span>
-                  {{ form.imagen }}
-                </div>
-                <div class="file-path-wrapper">
-                  <input class="file-path validate" type="text">
-                </div>
+        </div>
+        <div class="row">
+          <div class="file-field input-field col s6">
+            <div class="btn">
+              <span>Imagen</span>
+              {{ form.imagen }}
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text">
+            </div>
+            </div>
+              <div class="col s6">
+                <label>
+                {{ form.permitir_comentarios }}
+                <span>Permitir Comentarios</span>
+                </label>        
               </div>
-                <div class="col s6">
-                  <label>
-                    {{ form.permitir_comentarios }}
-                    <span>Permitir Comentarios</span>
-                  </label>        
-                </div>
+            <div class="input-field col s12">
+                {{form.categoria}}
+                <label>Categorias</label>
+            </div>
           </div>
 
 

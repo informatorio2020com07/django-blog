@@ -1,12 +1,12 @@
 {% for post in posts %}
               <div class="col s6 m6 l4">
                 <div class="card">
-                  <div class="card-image">
+                  <div class="imagen-post-grid">
                     <img src="{{post.imagen.url}}">
-                    <span class="card-title black-text">{{post.titulo}}</span>
                   </div>
                   <div class="card-content">
-                    <p>{{post.contenido}}</p>
+                    <span class="card-title black-text">{{post.titulo}}</span>
+                    <p>{{post.contenido | truncatechars:40}}</p>
                   </div>
                   <div class="card-action">
                     <a href="{% url 'post' post.id %}">Ir al Post</a>
