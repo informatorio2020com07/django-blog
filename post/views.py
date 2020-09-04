@@ -73,6 +73,7 @@ def show_categoria(request,id):
     "categorias":categorias,}
     return render(request, "post/index.html",contexto)
 
+@login_required
 def like(request,id):
     post=Post.objects.get(pk=id)
     print(post.id)
