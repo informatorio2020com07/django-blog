@@ -62,7 +62,6 @@
         <button type="submit">Registrarme</button>
     </form>
 </div>
-{% if request.user.is_authenticated %}
-{% endif %}
   <a href="{% url 'iniciar_sesion' %}">Iniciar Sesion</a>
+{% endif %}
 {% endblock %}

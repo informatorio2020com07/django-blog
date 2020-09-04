@@ -22,17 +22,19 @@ def bienvenido_premium(request):
         return redirect("iniciar_sesion")
 
 def nuevo_usuario(request):
-    categorias = Categoria.objects.all()
-    form = NuevoUsuarioForm()
-    if request.method == "POST":
-        form = NuevoUsuarioForm(request.POST, request.FILES)
-        
-        if form.is_valid():
-            user = form.save()
-            if user is not None:
-                login(request,user)
-                return redirect("index")
-    return render(request, "cuenta/nuevo_usuario.html",{"form":form,"categorias":categorias,})
+    if request.user.is_authenticated:
+        return redirect("index")
+    else:
+        categorias = Categoria.objects.all()
+        form = NuevoUsuarioForm()
+        if request.method == "POST":
+            form = NuevoUsuarioForm(request.POST, request.FILES)
+            if form.is_valid():
+                user = form.save()
+                if user is not None:
+                    login(request,user)
+                    return redirect("index")
+        return render(request, "cuenta/nuevo_usuario.html",{"form":form,"categorias":categorias,})
 
 def iniciar_sesion(request):
     categorias = Categoria.objects.all()
