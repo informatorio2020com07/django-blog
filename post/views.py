@@ -14,7 +14,9 @@ def index(request):
 
 
 def show_post(request,id):
+
     post=Post.objects.get(pk=id)
+
     usuario=post.usuario
     categorias = Categoria.objects.all()
     form_comentario=ComentarioForm()
@@ -91,3 +93,11 @@ def like(request,id):
         califi.save()
     return redirect("post", post.id)
 
+
+@login_required
+def borrar_post(request,id):
+    post = Post.objects.get(pk=id)
+    if request.method == "POST":
+        if post.usuario == request.user:
+            post.delete()
+            return redirect("ver_perfil", request.user.id)

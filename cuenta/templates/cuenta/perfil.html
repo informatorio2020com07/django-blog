@@ -13,7 +13,31 @@
     {% endif %}    
     {% if request.user == perfil%}
         <button>Editar</button>
+
+
+
     {% else %}
         <button>otra cosa</button>
     {% endif %}
+
+        <div class="row">
+            <div class="divider"></div>
+        </div>
+        <div class="row">
+            <h1>MIS POST</h1>
+            {% for post in perfil.post_set.all %}
+                <div class="row">
+                    <h3>{{ post.titulo }}</h3>
+                    {% if request.user == perfil%}
+                        <form method="POST" action="{%url 'borrar_post' post.id%}">
+                            {% csrf_token %}
+                            <input type="submit" value="Eliminar" onclick="return confirm('Seguro?')">
+                            
+                        </form>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+
+
 {% endblock %}
