@@ -1,0 +1,33 @@
+<form method="GET" style="padding-top: 20px;">
+    <div class="row">
+        <div class="input-field col s10">
+            <input type="text" name="param_titulo" placeholder="Búsqueda">
+            <label for="param_titulo">Buscar:</label>
+        </div>
+        <div class="input-field col s2 center">
+          <button class="btn waves-effect waves-light" type="submit">
+            <i class="material-icons">search</i>
+          </button>         
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s12 m5">
+            <select name="param_orden">
+                    <option value="0">Título</option>
+              <optgroup label="Fecha">
+                    <option value="1" selected>Antiguo</option>
+                    <option value="2" selected>Nuevo</option>
+              </optgroup>
+            </select>
+            <label>Orden</label>
+        </div>
+        
+        <div class="col s12 m2">
+            <label>
+                <input type="checkbox" class="with-gap" name="param_comentario" value="SI" id="delivery_si">
+                <span>Comentarios Habilitados</span>
+             </label>
+        </div>
+    </div>    
+
+</form>

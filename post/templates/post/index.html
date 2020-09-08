@@ -7,6 +7,9 @@
 {%block contenido%}
 
     <div class="row">
+        {% include 'post/search_form.html' %}
+    </div>
+    <div class="row">
         {% include 'post/grid_post.html' with posts=posts %}
         
     </div>
