@@ -1,7 +1,7 @@
 <form method="GET" style="padding-top: 20px;">
     <div class="row">
         <div class="input-field col s10">
-            <input type="text" name="param_titulo" placeholder="Búsqueda">
+            <input type="text" name="param_titulo" placeholder="Búsqueda" value="{{param_titulo}}">
             <label for="param_titulo">Buscar:</label>
         </div>
         <div class="input-field col s2 center">
@@ -13,10 +13,28 @@
     <div class="row">
         <div class="input-field col s12 m5">
             <select name="param_orden">
-                    <option value="0">Título</option>
+                    {% if param_orden == 'titulo'%}
+                        <option value="titulo" selected>Título</option>
+                    {% else %}
+                        <option value="titulo">Título</option>
+                    {% endif %}
+
               <optgroup label="Fecha">
-                    <option value="1" selected>Antiguo</option>
-                    <option value="2" selected>Nuevo</option>
+                    {% if param_orden == 'antiguo'%}
+                        <option value="antiguo" selected>Antiguo</option>
+                    {% else %}
+                        <option value="antiguo">Antiguo</option>
+                    {% endif %}
+
+                    {% if param_orden %}
+                        {% if param_orden == 'nuevo'%}
+                            <option value="nuevo" selected>Nuevo</option>
+                        {% else %}
+                            <option value="nuevo">Nuevo</option>
+                        {% endif %}
+                    {% else %}
+                        <option value="nuevo" selected>Nuevo</option>
+                    {% endif %}                   
               </optgroup>
             </select>
             <label>Orden</label>
@@ -24,7 +42,11 @@
         
         <div class="col s12 m2">
             <label>
-                <input type="checkbox" class="with-gap" name="param_comentario" value="SI" id="delivery_si">
+                {% if param_comentarios_habilitados %}
+                    <input type="checkbox" class="with-gap" name="param_comentario" value="SI" id="delivery_si" checked>
+                {% else %}
+                    <input type="checkbox" class="with-gap" name="param_comentario" value="SI" id="delivery_si">
+                {% endif %}
                 <span>Comentarios Habilitados</span>
              </label>
         </div>
