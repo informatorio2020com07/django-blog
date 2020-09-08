@@ -11,13 +11,17 @@
     {% else %}
        <img src="{% static 'img/pordefecto.jpg' %}" alt="archivo por defecto">
     {% endif %}    
+    
+
+    
+
     {% if request.user == perfil%}
+        
         <button>Editar</button>
 
-
-
     {% else %}
-        <button>otra cosa</button>
+        {% if siguiendo %}
+        <a href="{% url">
     {% endif %}
 
         <div class="row">
@@ -32,8 +36,26 @@
                         <button>Editar</button>
                         <form method="POST" action="{%url 'borrar_post' post.id%}">
                             <button type="submit">Borrar</button>
+                        
                         </form>
                     {% endif %}
                 </div>
             {% endfor %}
+        </div>
+
+
+        <div class="row seguidores">
+            <h3>Seguidores</h3>
+            <ul>
+            {% for seguidor in perfil.seguidores.all %}
+                <li>
+                {{ seguidor.username }}
+                </li>
+            {{% endfor %}}
+        </div>
+
+        <div class="row seguidos">
+            <h3>Seguidos</h3>
+            {% for seguido.username}
+
 {% endblock %}

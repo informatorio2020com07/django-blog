@@ -4,3 +4,4 @@ from django.contrib.auth.models import AbstractUser
 class Perfil(AbstractUser):
     nacimiento = models.DateField(null=True)
     foto = models.ImageField(upload_to="perfil", null=True, blank=True)
+    seguidos = models.ManyToManyField("Perfil", blank=True, related_name="seguidores")

@@ -17,6 +17,8 @@ class Post(models.Model):
     fecha_modificado = models.DateTimeField(auto_now=True)
     categoria = models.ForeignKey(Categoria, on_delete = models.SET_NULL,null=True)
     permitir_comentarios = models.BooleanField(default = True)
+    
+    puntuadores = models.ManyToManyField(Perfil, blank=True, through="Tablaintermedia", related_name="post_calificados")
     def __str__(self):
         return self.titulo
 
@@ -42,3 +44,7 @@ class Calificacion_comentario(models.Model):
     observador=models.ForeignKey(Perfil, on_delete = models.CASCADE)
     calificacion=models.IntegerField() 
 
+class Tablaintermedia(models.Model):
+    post=models.ForeignKey(Post, on_delete = models.CASCADE, related_name="calificacion")
+    usuario=models.ForeignKey(Perfil, on_delete = models.CASCADE, related_name="detalle_calificacion")
+    calificacion=models.IntegerField()

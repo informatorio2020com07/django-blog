@@ -9,6 +9,7 @@ from .forms import NuevoUsuarioForm
 #fin crear usuario
 from .models import Perfil
 from post.models import Categoria
+from django.contrib.auth.decorators import login_required
 
 def bienvenido(request):
     categorias = Categoria.objects.all()
@@ -57,9 +58,26 @@ def cerrar_sesion(request):
 def ver_perfil(request,id):
     categorias = Categoria.objects.all()
     perfil = Perfil.objects.get(pk=id)
+    if request.user.is_authenticated():
+        if request.user.seguidos.filter(id=perfil.id):
+            seguido = True
     contexto = {
         "perfil":perfil,
         "categorias":categorias,
+        "siguiendo":seguido,
         }
     template = "cuenta/perfil.html"
-    return render(request, template, contexto)    
+    return render(request, template, contexto)
+
+@login_required
+def seguir_perfil(request, id):
+    perfil_a_seguir = Perfil.objects.get(pk=id)
+    perfil_seguidor = request.user
+    if perfil_a_seguir != perfil_seguidor:
+        if perfil_seguidor.seguidos.filter(id=perfil_a_seguir.id):
+            perfil_seguidor.seguidos.remove(perfil_a_seguir)
+        else:
+            perfil_seguidor.seguidos.add(perfil_a_seguir)
+
+
+    return redirect("ver_perfil", perfil_a_seguir.id)

@@ -99,3 +99,4 @@ def borrar_post(request, id):
         return redirect("perfil", request.user.id)
     else:
         return redirect("index")
+
