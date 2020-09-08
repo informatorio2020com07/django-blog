@@ -5,10 +5,29 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def index(request):
-    posts = Post.objects.all()[0:12]
+    filtro_titulo = request.GET.get("param_titulo", "")
+    orden_post = request.GET.get("param_orden", None)
+    param_comentarios_habilitados = request.GET.get("param_comentario", None)
+
+    posts = Post.objects.filter(titulo__icontains=filtro_titulo)
+
+    if param_comentarios_habilitados:
+        posts = posts.filter(permitir_comentarios = True)
+
+    if orden_post == "titulo":
+        posts = posts.order_by("titulo")
+    elif orden_post == "antiguo":
+        posts = posts.order_by("fecha_creado")
+    elif orden_post == "nuevo":
+        posts = posts.order_by("-fecha_creado")
+    else:
+        posts = posts.order_by("-fecha_creado")
     categorias = Categoria.objects.all()
     contexto = {"posts":posts,
                 "categorias":categorias,
+                "param_titulo":filtro_titulo,
+                "param_orden":orden_post,
+                "param_comentarios_habilitados":param_comentarios_habilitados,
                 }
     return render(request, "post/index.html",contexto)
 
