@@ -10,14 +10,21 @@
     <img src="{{ perfil.foto.url }}" alt="imagen de perfil">
     {% else %}
        <img src="{% static 'img/pordefecto.jpg' %}" alt="archivo por defecto">
-    {% endif %}    
+    {% endif %}
+
+    <a href="{% url 'prueba' 4 5 %}">probando</a>
+    
+
     {% if request.user == perfil%}
+
         <button>Editar</button>
 
-
-
     {% else %}
-        <button>otra cosa</button>
+        {% if siguiendo%}
+            <a href="{% url 'seguir_perfil' perfil.id%}">Dejar Seguir</a>
+        {% else %}
+            <a href="{% url 'seguir_perfil' perfil.id%}">Seguir</a>
+        {% endif %}
     {% endif %}
 
         <div class="row">
@@ -37,6 +44,32 @@
                     {% endif %}
                 </div>
             {% endfor %}
+        </div>
+
+
+
+        <div class="row seguidores">
+            <h3>Seguidores</h3>
+            <ul>
+                
+            {% for seguidor in perfil.seguidores.all %}
+                <li>
+                    {{ seguidor.username }}
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+
+        <div class="row seguidos">
+                
+            <h3>Seguidos</h3>
+            <ul>
+            {% for seguido in perfil.seguidos.all %}
+               <li>
+                   {{ seguido.username }}
+               </li> 
+            {% endfor %}            
+            </ul>
         </div>
 
 

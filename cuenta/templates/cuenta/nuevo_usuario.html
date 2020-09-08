@@ -14,42 +14,77 @@
                 <label class="active" for="id_username">Nombre de Usuario</label>
                 <label for="helptext">{{form.renewal_date.help_text}}</label>
               </div>
+              <div>
+                <p>
+                  {{ form.username.errors }}
+                </p>
+              </div>
           </div>
           <div class="row">
               <div class="input-field col s6">
                 {{ form.first_name }}
                 <label class="active" for="id_firstname">Nombre</label>
               </div>
+              <div>
+                <p>
+                  {{ form.firs_name.errors }}
+                </p>
+              </div>                
           </div>
           <div class="row">
               <div class="input-field col s6">
                 {{ form.last_name }}
                 <label class="active" for="id_lastname">Apellido</label>
               </div>
+              <div>
+                <p>
+                  {{ form.last_name.errors }}
+                </p>
+              </div>                
           </div>
           <div class="row">
               <div class="input-field col s6">
                 {{ form.email }}
                 <label class="active" for="id_email">Email</label>
               </div>
+              <div>
+                <p>
+                  {{ form.email.errors }}
+                </p>
+              </div>                
           </div>
           <div class="row">
               <div class="input-field col s6">
                 {{ form.password1 }}
                 <label class="active" for="id_password1">Contraseña</label>
               </div>
+              <div>
+                <p>
+                  {{ form.password1.errors }}
+                </p>
+              </div>                
           </div>
           <div class="row">
               <div class="input-field col s6">
                 {{ form.password2 }}
                 <label class="active" for="id_password2">Repetir Contraseña</label>
               </div>
+              <div>
+                <p>
+                  {{ form.password2.errors }}
+                </p>
+              </div>                
           </div>
           <div class="row">
               <div class="input-field col s6">
                 {{ form.nacimiento }}
                 <label class="active" for="id_nacimeinto">Fecha de Nacimiento</label>
               </div>
+              <div>
+                <p>
+                  {{ form.nacimiento.errors }}
+                </p>
+              </div>              
           </div>
           <div class="file-field input-field col s6">
               <div class="btn">
@@ -57,6 +92,11 @@
                   {{form.foto}}
                   <label for="id_foto"></label>
               </div>
+              <div>
+                <p>
+                  {{ form.foto.errors }}
+                </p>
+              </div>                  
           </div>
 
         <button type="submit">Registrarme</button>

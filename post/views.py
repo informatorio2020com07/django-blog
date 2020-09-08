@@ -101,3 +101,11 @@ def borrar_post(request,id):
         if post.usuario == request.user:
             post.delete()
             return redirect("ver_perfil", request.user.id)
+
+def probando(request, valor, otrovalor):
+    print("\n\n\n\n")
+    print("-----------")
+    print("valor 1:", valor)
+    print("valor 2:", otrovalor)
+    print("-----------")
+    print("\n\n\n\n")
