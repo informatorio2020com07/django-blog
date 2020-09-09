@@ -6,8 +6,10 @@
 
 {%block contenido%}
 
+
     <div class="row">
-        {% include 'post/search_form.html' %}
+        {% include 'post/search_form.html' with categorias=categorias %}
+        
     </div>
     <div class="row">
         {% include 'post/grid_post.html' with posts=posts %}

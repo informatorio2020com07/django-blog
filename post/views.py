@@ -8,11 +8,17 @@ def index(request):
     filtro_titulo = request.GET.get("param_titulo", "")
     orden_post = request.GET.get("param_orden", None)
     param_comentarios_habilitados = request.GET.get("param_comentario", None)
+    param_categorias = request.GET.getlist("param_categorias")
+    print("\n\n\n-------------\n\n")
+    print(param_categorias)
+    print("\n\n\n-------------\n\n")
 
     posts = Post.objects.filter(titulo__icontains = filtro_titulo)
     
     if param_comentarios_habilitados:
         posts = posts.filter(permitir_comentarios = True)
+    if param_categorias:
+        posts = posts.filter(categoria__id__in = param_categorias)
 
     if orden_post == "titulo":
         posts= posts.order_by("titulo")
@@ -29,6 +35,7 @@ def index(request):
                 "param_titulo":filtro_titulo,
                 "param_orden":orden_post,
                 "param_comentarios_habilitados":param_comentarios_habilitados,
+                "param_categorias":param_categorias,
                 }
     return render(request, "post/index.html",contexto)
 
