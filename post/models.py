@@ -18,7 +18,7 @@ class Post(models.Model):
     categoria = models.ForeignKey(Categoria, on_delete = models.SET_NULL,null=True)
     permitir_comentarios = models.BooleanField(default = True)
 
-    puntuadores = models.ManyToManyField(Perfil, blank=True, through="Tablaintermedia", related_name="post_calificados")
+    puntuadores = models.ManyToManyField(Perfil, blank=True, through="CalificacionPost", related_name="post_calificados")
 
     def __str__(self):
         return self.titulo
@@ -45,7 +45,7 @@ class Calificacion_comentario(models.Model):
     observador=models.ForeignKey(Perfil, on_delete = models.CASCADE)
     calificacion=models.IntegerField() 
 
-class Tablaintermedia(models.Model):
+class CalificacionPost(models.Model):
     post=models.ForeignKey(Post, on_delete = models.CASCADE, related_name="calificacion")
     usuario=models.ForeignKey(Perfil, on_delete = models.CASCADE, related_name="detalle_calificacion")
     calificacion=models.IntegerField()    
