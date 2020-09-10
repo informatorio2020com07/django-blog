@@ -11,7 +11,7 @@ class Categoria(models.Model):
         return self.titulo
 
 class Post(models.Model):
-    titulo = models.EmailField(max_length=30)
+    titulo = models.CharField(max_length=30)
     contenido = models.TextField()
     imagen = models.ImageField(upload_to="post/", null=True)
     usuario = models.ForeignKey(Perfil, on_delete = models.CASCADE,default=None, related_name="post_creados")
@@ -20,11 +20,13 @@ class Post(models.Model):
     categoria = models.ForeignKey(Categoria, on_delete = models.SET_NULL,null=True)
     permitir_comentarios = models.BooleanField(default = True)
 
+    ESTADO_PUBLICO = "public"
+    ESTADO_OCULTO = "hidden"
     lista_estados = (
-        ("public", "Publico"),
-        ("hidden", "Oculto")
+        (ESTADO_PUBLICO, "Publico"),
+        (ESTADO_OCULTO, "Oculto")
         )
-    estado = CharField(max_length=1,Choices=lista_estados)
+    estado = models.CharField(max_length=6,choices=lista_estados, default=ESTADO_PUBLICO)
     
     puntuadores = models.ManyToManyField(Perfil, blank=True, through="CalificacionPost", related_name="post_calificados")
 

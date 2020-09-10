@@ -76,10 +76,19 @@ WSGI_APPLICATION = 'blog.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+#linux: sudo apt-get install python3.6-dev libmysqlclient-dev
+#pip3 install mysqlclient
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        "HOST":"localhost",
+        "POST":"",
+        'NAME': "djangoblog",
+        "USER":"root",
+        "PASSWORD":"root",
+
     }
 }
 
