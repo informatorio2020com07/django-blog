@@ -2,16 +2,19 @@ from django.shortcuts import render, redirect
 from .models import Post,Categoria,Calificacion_post
 from .forms import PostForm,ComentarioForm,CategoriaForm
 from django.contrib.auth.decorators import login_required
-# Create your views here.
+
 
 def index(request):
     filtro_titulo = request.GET.get("param_titulo", "")
     orden_post = request.GET.get("param_orden", None)
     param_comentarios_habilitados = request.GET.get("param_comentario", None)
     param_categorias = request.GET.getlist("param_categorias")
-    print("\n\n\n-------------\n\n")
-    print(param_categorias)
-    print("\n\n\n-------------\n\n")
+
+    #print("\n\n\n-------------\n\n")
+    #print("GET:", request.GET)
+    #print("GET.get: ", request.GET.get("param_categorias"))
+    #print("GET.getlist: ",param_categorias)
+    #print("\n\n\n-------------\n\n")
 
     posts = Post.objects.filter(titulo__icontains = filtro_titulo)
     
@@ -26,8 +29,7 @@ def index(request):
         posts= posts.order_by("fecha_creado")
     elif orden_post == "nuevo":
         posts= posts.order_by("-fecha_creado")
-    else:
-        posts= posts.order_by("-fecha_creado")
+
 
     categorias = Categoria.objects.all()
     contexto = {"posts":posts,
@@ -117,7 +119,12 @@ def like(request,id):
         califi.post=post
         califi.calificacion=1
         califi.observador=request.user
-        califi.save()
+        try:
+            califi.full_clean()
+            califi.save()
+        except:
+            pass#no fuardar
+        
     return redirect("post", post.id)
 
 
