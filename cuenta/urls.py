@@ -9,4 +9,6 @@ urlpatterns = [
     path("logout", views.cerrar_sesion, name="cerrar_sesion"),
     path("perfil/<int:id>", views.ver_perfil, name="ver_perfil"),
     path("perfil/<int:id>/seguir", views.seguir_perfil, name="seguir_perfil"),
+
+    path("perfil/<int:id>/editar", views.editar_perfil, name="editar_perfil"),
 ]

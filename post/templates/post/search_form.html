@@ -1,8 +1,10 @@
 <form method="GET" style="padding-top: 20px;">
+
+
     <div class="row">
         <div class="input-field col s10">
-            <input type="text" name="param_titulo" placeholder="Búsqueda" value="{{param_titulo}}">
-            <label for="param_titulo">Buscar:</label>
+            {{ search_form.titulo }}
+            <label for="{{ search_form.titulo.id_for_label }}">Buscar:</label>
         </div>
         <div class="input-field col s2 center">
           <button class="btn waves-effect waves-light" type="submit">
@@ -10,60 +12,30 @@
           </button>         
         </div>
     </div>
+
+
     <div class="row">
         <div class="input-field col s12 m6">
-            <select name="param_orden">
-                    {% if param_orden == 'titulo'%}
-                        <option value="titulo" selected>Título</option>
-                    {% else %}
-                        <option value="titulo">Título</option>
-                    {% endif %}
-
-              <optgroup label="Fecha">
-                    {% if param_orden == 'antiguo'%}
-                        <option value="antiguo" selected>Antiguo</option>
-                    {% else %}
-                        <option value="antiguo">Antiguo</option>
-                    {% endif %}
-
-                    {% if param_orden %}
-                        {% if param_orden == 'nuevo'%}
-                            <option value="nuevo" selected>Nuevo</option>
-                        {% else %}
-                            <option value="nuevo">Nuevo</option>
-                        {% endif %}
-                    {% else %}
-                        <option value="nuevo" selected>Nuevo</option>
-                    {% endif %}                   
-              </optgroup>
-            </select>
+            {{ search_form.orden }}
             <label>Orden</label>
+            
         </div>
 
         <div class="input-field col s12 m6">
-            <select multiple name="param_categorias">
-              <option value="" disabled selected>Categorías</option>
-              {% for categoria in categorias %}
-                {% if categoria.id|stringformat:"i" in param_categorias %}
-                    <option value="{{ categoria.id }}" selected>{{ categoria.titulo }}</option>
-                {% else %}
-                    <option value="{{ categoria.id }}">{{ categoria.titulo }}</option>
-                {% endif %}
-              {% endfor %}
-            </select>
+            {{ search_form.categoria }}
             <label>Filtrar Categorías</label>
+            
         </div>        
         
         <div class="col s12">
             <label>
-                {% if param_comentarios_habilitados %}
-                    <input type="checkbox" class="with-gap" name="param_comentario" value="SI" id="delivery_si" checked>
-                {% else %}
-                    <input type="checkbox" class="with-gap" name="param_comentario" value="SI" id="delivery_si">
-                {% endif %}
-                <span>Comentarios Habilitados</span>
+                {{ search_form.permitir_comentarios }}
+                <span>Mostrar Solo con Comentarios Habilitados</span>
              </label>
         </div>
     </div>    
+
+
+
 
 </form>

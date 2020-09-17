@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect, HttpResponse
 #cerrar sesion
 from django.contrib.auth import logout
 #iniciar sesion
@@ -83,3 +83,12 @@ def seguir_perfil(request, id):
 
 
     return redirect("ver_perfil", perfil_a_seguir.id)
+
+@login_required
+def editar_perfil(request, id):
+    perfil = Perfil.objects.get(pk=id)
+    if perfil == request.user:
+        pass
+    else:
+        pass
+    return HttpResponse("editar")

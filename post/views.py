@@ -1,20 +1,20 @@
 from django.shortcuts import render, redirect, HttpResponse
 from .models import Post,Categoria,CalificacionPost
-from .forms import PostForm,ComentarioForm,CategoriaForm
+from .forms import PostForm,ComentarioForm,CategoriaForm, SearchForm
 from django.contrib.auth.decorators import login_required
 
 
 def index(request):
-    filtro_titulo = request.GET.get("param_titulo", "")
-    orden_post = request.GET.get("param_orden", None)
-    param_comentarios_habilitados = request.GET.get("param_comentario", None)
-    param_categorias = request.GET.getlist("param_categorias")
+    if request.GET:
+        search_form = SearchForm(request.GET)
+    else:
+        search_form = SearchForm()
 
-    #print("\n\n\n-------------\n\n")
-    #print("GET:", request.GET)
-    #print("GET.get: ", request.GET.get("param_categorias"))
-    #print("GET.getlist: ",param_categorias)
-    #print("\n\n\n-------------\n\n")
+    filtro_titulo = request.GET.get("titulo", "")
+    orden_post = request.GET.get("orden", None)
+    param_comentarios_habilitados = request.GET.get("permitir_comentarios", None)
+    param_categorias = request.GET.getlist("categoria")
+
 
     posts = Post.objects.filter(titulo__icontains = filtro_titulo)
     
@@ -33,11 +33,7 @@ def index(request):
 
     categorias = Categoria.objects.all()
     contexto = {"posts":posts,
-                "categorias":categorias,
-                "param_titulo":filtro_titulo,
-                "param_orden":orden_post,
-                "param_comentarios_habilitados":param_comentarios_habilitados,
-                "param_categorias":param_categorias,
+                "search_form":search_form,
                 }
     return render(request, "post/index.html",contexto)
 
