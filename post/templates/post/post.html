@@ -13,7 +13,7 @@
                       <img src="{{post.imagen.url}}">
                     </div>
                     <div class="card-content">
-                      <span class="card-title black-text">{{post.titulo}}</span>
+                      <span class="card-title black-text">{{post.titulo}}</span>                      
                       <p class="flow-text">
                         {{post.contenido}}
                       </p>
@@ -22,11 +22,26 @@
                       <span><h6>Creador: {{ post.usuario.username }}</h6></span>
                       <span><h6>Categoria: {{ post.categoria.titulo }}</h6></span>
                       <span><h6>Calificación: {{post.puntaje}}</h6></span>
+
                     </div>
                   </div>
                 </div>
                 <!-- fin post previa -->
             </div>
+
+
+ 
+            <div class="row opciones-box">
+            {% if request.user == post.usuario%}
+                <form method="POST" action="{%url 'borrar_post' post.id%}">
+                    {% csrf_token %}
+                    <button type="submit" onclick="return confirm('Seguro?')" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">delete</i></button>
+                </form>
+            {% endif %}
+          </div>
+
+
+
 
             <div class="row calificacion-box">
               <div class="row center-align calificacion-botonera">                

@@ -12,9 +12,6 @@
        <img src="{% static 'img/pordefecto.jpg' %}" alt="archivo por defecto">
     {% endif %}
 
-    <a href="{% url 'prueba' 4 5 %}">probando</a>
-    
-
     {% if request.user == perfil%}
 
         <button>Editar</button>
@@ -31,20 +28,18 @@
             <div class="divider"></div>
         </div>
         <div class="row">
-            <h1>MIS POST</h1>
-            {% for post in perfil.post_set.all %}
-                <div class="row">
-                    <h3>{{ post.titulo }}</h3>
-                    {% if request.user == perfil%}
-                        <form method="POST" action="{%url 'borrar_post' post.id%}">
-                            {% csrf_token %}
-                            <input type="submit" value="Eliminar" onclick="return confirm('Seguro?')">
-                            
-                        </form>
-                    {% endif %}
-                </div>
-            {% endfor %}
-        </div>
+            <h1>POSTs</h1>
+
+    <div class="row">
+        {% include 'post/grid_post.html' with posts=perfil.post_creados.all %}
+        
+    </div>
+
+
+
+
+
+    
 
 
 
