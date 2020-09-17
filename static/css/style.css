@@ -1,11 +1,14 @@
-.comentarios{
+.comentarios, .calificacion-box{
     border: solid 1px lightgrey;
     border-radius: 3px;
     margin-bottom: 10px;
-    padding: 5px;
+    padding: 20px;
     background-color: #ffffff;
 }
 
+.calificacion-botonera{
+    margin:0px;
+}
 
 .imagen-post-grid{
     height: 160px;

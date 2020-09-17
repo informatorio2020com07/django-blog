@@ -19,25 +19,17 @@
                       </p>
                     </div>
                     <div class="card-action">
-                      <p>{{post.puntaje}}</p>
-                      </a>
-                      <br>
-                      <br>
                       <span><h6>Creador: {{ post.usuario.username }}</h6></span>
-                      <br>
                       <span><h6>Categoria: {{ post.categoria.titulo }}</h6></span>
+                      <span><h6>Calificación: {{post.puntaje}}</h6></span>
                     </div>
                   </div>
                 </div>
                 <!-- fin post previa -->
             </div>
 
-            <div class="row comentarios">
-              <div class="col s12 center-align">
-                <h5>Calificar</h5>
-              </div>
-
-              <div class="row center-align">                
+            <div class="row calificacion-box">
+              <div class="row center-align calificacion-botonera">                
                 <div class="col s2">
                   <a class="waves-effect waves-light btn pulse light-green accent-3" href="{% url 'calificar_post' post.id 0 %}">0</a>
                 </div>
