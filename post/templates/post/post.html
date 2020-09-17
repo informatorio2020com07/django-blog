@@ -19,14 +19,6 @@
                       </p>
                     </div>
                     <div class="card-action">
-                      <a href="{% url 'like' post.id %}">
-                        <img onClick="desaparecer_like();" id=like src="{% static 'img/like.jpg'%}" alt="">
-                      </a>
-                      <a href="#">
-                        <img  onClick="desaparecer_like()" id=dislike src="{% static 'img/Dislike.jpg'%}" alt="">
-                      </a>
-                      <a href="#"><img id=like_active src="{% static 'img/like_active.jpg'%}" alt=""></a>
-                      <a href="#"><img id=dislike_active src="{% static 'img/Dislike_active.jpg'%}" alt="">
                       <p>{{post.puntaje}}</p>
                       </a>
                       <br>
@@ -42,41 +34,27 @@
 
             <div class="row comentarios">
               <div class="col s12 center-align">
-                <h4>Calificar</h4>
+                <h5>Calificar</h5>
               </div>
-              <div class="row center-align">
-                <div class="col s1">
-                  <a class="waves-effect waves-light btn pulse light-green accent-3" href="">-5</a>
+
+              <div class="row center-align">                
+                <div class="col s2">
+                  <a class="waves-effect waves-light btn pulse light-green accent-3" href="{% url 'calificar_post' post.id 0 %}">0</a>
                 </div>
-                <div class="col s1">
-                  <a class="waves-effect waves-light btn" href="">-4</a>
+                <div class="col s2">
+                  <a class="waves-effect waves-light btn {% if calificacion >= 1 %}pulse light-green accent-3{%endif%}" href="{% url 'calificar_post' post.id 1 %}">1</a>
                 </div>
-                <div class="col s1">
-                  <a class="waves-effect waves-light btn" href="">-3</a>
+                <div class="col s2">
+                  <a class="waves-effect waves-light btn {% if calificacion >= 2 %}pulse light-green accent-3{%endif%}" href="{% url 'calificar_post' post.id 2 %}">2</a>
                 </div>
-                <div class="col s1">
-                  <a class="waves-effect waves-light btn" href="">-2</a>
+                <div class="col s2">
+                  <a class="waves-effect waves-light btn {% if calificacion >= 3 %}pulse light-green accent-3{%endif%}" href="{% url 'calificar_post' post.id 3 %}">3</a>
                 </div>
-                <div class="col s1">
-                  <a class="waves-effect waves-light btn" href="">-1</a>
+                <div class="col s2">
+                  <a class="waves-effect waves-light btn {% if calificacion >= 4 %}pulse light-green accent-3{%endif%}" href="{% url 'calificar_post' post.id 4 %}">4</a>
                 </div>
-                <div class="col s1">
-                  <a class="waves-effect waves-light btn" href="">0</a>
-                </div>
-                <div class="col s1">
-                  <a class="waves-effect waves-light btn" href="">1</a>
-                </div>
-                <div class="col s1">
-                  <a class="waves-effect waves-light btn" href="">2</a>
-                </div>
-                <div class="col s1">
-                  <a class="waves-effect waves-light btn" href="">3</a>
-                </div>
-                <div class="col s1">
-                  <a class="waves-effect waves-light btn" href="">4</a>
-                </div>
-                <div class="col s1">
-                  <a class="waves-effect waves-light btn" href="">5</a>
+                <div class="col s2">
+                  <a class="waves-effect waves-light btn {% if calificacion >= 5 %}pulse light-green accent-3{%endif%}" href="{% url 'calificar_post' post.id 5 %}">5</a>
                 </div>
 
               </div>

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post,Comentario,Categoria,Calificacion_post
+from .models import Post,Comentario,Categoria
 
 class PostForm(forms.ModelForm):
     class Meta:

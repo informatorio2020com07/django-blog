@@ -35,7 +35,7 @@ class Post(models.Model):
 
     def puntaje(self):
         puntaje = 0
-        for x in self.calificacion_post_set.all():
+        for x in self.calificacion.all():
             puntaje += x.calificacion
         return puntaje
 
@@ -49,16 +49,6 @@ class Comentario(models.Model):
     usuario=models.ForeignKey(Perfil, on_delete = models.SET_NULL, null=True)
     texto = models.TextField(max_length=200)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
-
-class Calificacion_post(models.Model):
-    post=models.ForeignKey(Post, on_delete = models.CASCADE)
-    observador=models.ForeignKey(Perfil, on_delete = models.CASCADE)
-    calificacion=models.IntegerField()
-
-class Calificacion_comentario(models.Model):
-    comentario=models.ForeignKey(Comentario, on_delete = models.CASCADE)
-    observador=models.ForeignKey(Perfil, on_delete = models.CASCADE)
-    calificacion=models.IntegerField() 
 
 class CalificacionPost(models.Model):
     post=models.ForeignKey(Post, on_delete = models.CASCADE, related_name="calificacion")

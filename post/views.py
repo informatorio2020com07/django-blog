@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect
-from .models import Post,Categoria,Calificacion_post
+from django.shortcuts import render, redirect, HttpResponse
+from .models import Post,Categoria,CalificacionPost
 from .forms import PostForm,ComentarioForm,CategoriaForm
 from django.contrib.auth.decorators import login_required
 
@@ -52,12 +52,23 @@ def show_post(request,id):
     mas_post = Post.objects.filter(usuario_id=usuario)
     #linea agregada
     comentarios = post.comentario_set.all().order_by("-fecha_creacion")
+
+    if request.user.is_authenticated:
+        calif = request.user.detalle_calificacion.filter(post=post).first()
+        if calif:
+            calificacion = calif.calificacion
+        else:
+            calificacion = 0
+    else:
+        calificacion = 0
+
     contexto = {
     "mas_post":mas_post,
     "post":post,
     "form_comentario":form_comentario,
     "categorias":categorias,
     "comentarios":comentarios,
+    "calificacion":calificacion,
     }
     return render(request,"post/post.html",contexto)
 
@@ -104,29 +115,6 @@ def show_categoria(request,id):
     "categorias":categorias,}
     return render(request, "post/index.html",contexto)
 
-@login_required
-def like(request,id):
-    post=Post.objects.get(pk=id)
-    print(post.id)
-    print(request.user.id)
-    cali=Calificacion_post.objects.filter(post=post)
-    flag=True
-    for x in cali:
-        if x.observador==request.user:
-            flag=False
-    if flag:
-        califi = Calificacion_post()
-        califi.post=post
-        califi.calificacion=1
-        califi.observador=request.user
-        try:
-            califi.full_clean()
-            califi.save()
-        except:
-            pass#no fuardar
-        
-    return redirect("post", post.id)
-
 
 @login_required
 def borrar_post(request,id):
@@ -136,10 +124,23 @@ def borrar_post(request,id):
             post.delete()
             return redirect("ver_perfil", request.user.id)
 
-def probando(request, valor, otrovalor):
-    print("\n\n\n\n")
-    print("-----------")
-    print("valor 1:", valor)
-    print("valor 2:", otrovalor)
-    print("-----------")
-    print("\n\n\n\n")
+@login_required
+def calificar_post(request, id, calificacion):
+    perfil = request.user
+    post = Post.objects.get(pk=id)
+    calif = perfil.detalle_calificacion.filter(post=post).first()
+
+    if calif:
+        calif.calificacion = calificacion
+    else:
+        calif = CalificacionPost()
+        calif.post = post
+        calif.calificacion = calificacion
+        calif.usuario = perfil
+
+    try:
+        calif.full_clean() 
+        calif.save()
+    except Exception as ex: 
+        return HttpResponse("error")
+    return redirect("post", post.id)
