@@ -14,7 +14,7 @@
 
     {% if request.user == perfil%}
 
-            <a href="{% url 'editar_perfil' perfil.id %}">Editar</a>
+            <a href="{% url 'editar_perfil' %}">Editar</a>
 
     {% else %}
         {% if siguiendo%}

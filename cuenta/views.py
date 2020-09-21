@@ -3,13 +3,16 @@ from django.shortcuts import render,redirect, HttpResponse
 from django.contrib.auth import logout
 #iniciar sesion
 from django.contrib.auth import login, authenticate
-from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm
 #crear usuario
-from .forms import NuevoUsuarioForm
+from .forms import NuevoUsuarioForm,EditarPerfilForm
+from django.contrib.auth.forms import UserChangeForm
 #fin crear usuario
 from .models import Perfil
 from post.models import Categoria
 from django.contrib.auth.decorators import login_required
+
+from django.contrib.auth.forms import PasswordChangeForm
 
 def bienvenido(request):
     categorias = Categoria.objects.all()
@@ -36,6 +39,33 @@ def nuevo_usuario(request):
                     login(request,user)
                     return redirect("index")
         return render(request, "cuenta/nuevo_usuario.html",{"form":form,"categorias":categorias,})
+
+
+@login_required
+def editar_perfil(request):
+    perfil = request.user
+    form = EditarPerfilForm(instance = perfil)
+    if request.method == "POST":
+        form = EditarPerfilForm(request.POST, request.FILES, instance=perfil)
+        if form.is_valid():
+            perfil = form.save()
+            return redirect("ver_perfil", perfil.id)
+    return render(request, "cuenta/editar_perfil.html",{"form":form})
+
+@login_required
+def editar_password(request):
+    perfil = request.user
+    form = PasswordChangeForm(user = perfil)
+    if request.method == "POST":
+        form = PasswordChangeForm(data = request.POST, user=perfil)
+        if form.is_valid():
+            perfil = form.save()
+            return redirect("ver_perfil", perfil.id)
+        else:
+            return render(request, "cuenta/editar_password.html",{"form":form})
+
+    else:
+        return render(request, "cuenta/editar_password.html",{"form":form})
 
 def iniciar_sesion(request):
     categorias = Categoria.objects.all()
@@ -84,11 +114,4 @@ def seguir_perfil(request, id):
 
     return redirect("ver_perfil", perfil_a_seguir.id)
 
-@login_required
-def editar_perfil(request, id):
-    perfil = Perfil.objects.get(pk=id)
-    if perfil == request.user:
-        pass
-    else:
-        pass
-    return HttpResponse("editar")
+

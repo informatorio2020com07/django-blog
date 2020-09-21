@@ -10,5 +10,6 @@ urlpatterns = [
     path("perfil/<int:id>", views.ver_perfil, name="ver_perfil"),
     path("perfil/<int:id>/seguir", views.seguir_perfil, name="seguir_perfil"),
 
-    path("perfil/<int:id>/editar", views.editar_perfil, name="editar_perfil"),
+    path("perfil/editar", views.editar_perfil, name="editar_perfil"),
+    path("perfil/cambiar_clave", views.editar_password, name="editar_password"),
 ]
