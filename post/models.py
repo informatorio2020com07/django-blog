@@ -37,6 +37,7 @@ class Post(models.Model):
         puntaje = 0
         for x in self.calificacion.all():
             puntaje += x.calificacion
+
         return puntaje
 
     class Meta:
@@ -54,7 +55,7 @@ class CalificacionPost(models.Model):
     post=models.ForeignKey(Post, on_delete = models.CASCADE, related_name="calificacion")
     usuario=models.ForeignKey(Perfil, on_delete = models.CASCADE, related_name="detalle_calificacion")
     #calificacion=models.IntegerField(validators = [validate_valor_calificacion])
-    calificacion=models.IntegerField(validators = [MaxValueValidator(5), MinValueValidator(-5)])
+    calificacion=models.IntegerField(validators = [MaxValueValidator(5), MinValueValidator(0)])
 
     class Meta: 
         unique_together = ("post","usuario")

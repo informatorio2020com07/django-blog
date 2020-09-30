@@ -10,7 +10,11 @@
                 <div class="col s12">
                   <div class="card">
                     <div class="card-image">
-                      <img src="{{post.imagen.url}}">
+                      {% if post.imagen %}
+                        <img src="{{post.imagen.url}}">
+                      {% endif %}
+                      
+                      
                     </div>
                     <div class="card-content">
                       <span class="card-title black-text">{{post.titulo}}</span>                      
@@ -19,8 +23,11 @@
                       </p>
                     </div>
                     <div class="card-action">
-                      <span><h6>Creador: {{ post.usuario.username }}</h6></span>
-                      <span><h6>Categoria: {{ post.categoria.titulo }}</h6></span>
+
+                      <span><h6>Creador: <a href="{% url 'ver_perfil' post.usuario.id %}">{{post.usuario.username}}</a></h6></span>
+                      {% if post.categoria %}
+                      <span><h6>Categoria: <a href="{% url 'categoria' post.categoria.id %}">{{ post.categoria.titulo }}</a></h6></span>
+                      {% endif %}
                       <span><h6>Calificación: {{post.puntaje}}</h6></span>
 
                     </div>

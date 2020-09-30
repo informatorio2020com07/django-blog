@@ -39,14 +39,12 @@ def index(request):
 
 
 def show_post(request,id):
-
     post=Post.objects.get(pk=id)
 
     usuario=post.usuario
-    categorias = Categoria.objects.all()
     form_comentario=ComentarioForm()
     mas_post = Post.objects.filter(usuario_id=usuario)
-    #linea agregada
+    
     comentarios = post.comentario_set.all().order_by("-fecha_creacion")
 
     if request.user.is_authenticated:
@@ -62,7 +60,6 @@ def show_post(request,id):
     "mas_post":mas_post,
     "post":post,
     "form_comentario":form_comentario,
-    "categorias":categorias,
     "comentarios":comentarios,
     "calificacion":calificacion,
     }
@@ -71,7 +68,6 @@ def show_post(request,id):
 #decorador que controla el login del usuario cambiar en settings destino
 @login_required
 def new_post(request):
-    categorias = Categoria.objects.all()
     if request.method == "POST":
         form= PostForm(request.POST,request.FILES)
         if form.is_valid():
@@ -84,8 +80,9 @@ def new_post(request):
             "categorias":categorias,}
             return render(request, "post/new.html",contexto)
     form = PostForm()
-    contexto={"form":form,
-    "categorias":categorias,}
+    contexto = {
+        "form":form,
+        }
     return render(request, "post/new.html",contexto)
 
 @login_required
@@ -103,13 +100,7 @@ def comentar(request,id):
     else:
         return redirect("post", post.id)
 
-def show_categoria(request,id):
-    categorias = Categoria.objects.all()
-    cat=Categoria.objects.get(pk=id)
-    posts = Post.objects.filter(categoria=cat)
-    contexto = {"posts":posts,
-    "categorias":categorias,}
-    return render(request, "post/index.html",contexto)
+
 
 
 @login_required
@@ -140,3 +131,24 @@ def calificar_post(request, id, calificacion):
     except Exception as ex: 
         return HttpResponse("error")
     return redirect("post", post.id)
+
+
+
+def list_categoria(request):
+    categorias = Categoria.objects.all()
+    contexto = {
+        "categorias":categorias,
+    }
+    return render(request, "post/categoria/categorias.html", contexto)
+
+def show_categoria(request,id):
+    cat=Categoria.objects.get(pk=id)
+    posts = Post.objects.filter(categoria=cat)
+    contexto = {
+        "posts":posts,
+        "categoria":cat,
+    }
+    return render(request, "post/categoria/show_categoria.html",contexto)
+
+def feed(request):
+    return redirect("index")

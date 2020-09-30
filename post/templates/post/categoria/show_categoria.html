@@ -1,15 +1,11 @@
 {% extends 'base.html' %}
 
 {% block headtitle %}
-    Posts
+    Posts - {{ categoria.titulo }}
 {% endblock %}
 
 {%block contenido%}
 
-
-    <div class="row">
-        {% include 'post/search_form.html' with search_form=search_form %}        
-    </div>
     <div class="row">
         {% include 'post/grid_post.html' with posts=posts %}     
     </div>

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block headtitle %}
+    Posts
+{% endblock %}
+
+{%block contenido%}
+
+    <div class="row">
+        {% include 'post/categoria/grid_categoria.html' with categorias=categorias %}     
+    </div>
+ 
+{%endblock%}
