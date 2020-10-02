@@ -61,7 +61,7 @@
                     </div>
 
 
-                    <a href="/usuario/perfil/">
+                    <a href="{% url 'ver_perfil' request.user.id %}">
 
                       {% if request.user.foto %}
                         <img class="circle" src="{{request.user.foto.url}}">
