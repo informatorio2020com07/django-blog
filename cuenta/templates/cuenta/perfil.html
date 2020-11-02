@@ -5,67 +5,68 @@
 {% endblock %}
 
 {% block contenido %}
-    Perfil: {{ perfil.username }}
-    {% if perfil.foto %}
-    <img src="{{ perfil.foto.url }}" alt="imagen de perfil">
-    {% else %}
-       <img src="{% static 'img/pordefecto.jpg' %}" alt="archivo por defecto">
-    {% endif %}
-
-    {% if request.user == perfil%}
-
-            <a href="{% url 'editar_perfil' %}">Editar</a>
-
-    {% else %}
-        {% if siguiendo%}
-            <a href="{% url 'seguir_perfil' perfil.id%}">Dejar Seguir</a>
-        {% else %}
-            <a href="{% url 'seguir_perfil' perfil.id%}">Seguir</a>
-        {% endif %}
-    {% endif %}
-
-        <div class="row">
-            <div class="divider"></div>
-        </div>
-        <div class="row">
-            <h1>POSTs</h1>
+<div class="row"></div>
 
     <div class="row">
-        {% include 'post/grid_post.html' with posts=perfil.post_creados.all %}
-        
+            <div class="col m2"></div>
+              <div class="col s12 m8">
+                <div class="card">
+                    <div class="center-align col s12 profile-img-container">
+                            {% if perfil.foto %}
+                                <img class="responsive-img" src="{{ perfil.foto.url }}" alt="imagen de perfil">
+                            {% else %}
+                               <img class="responsive-img circle" src="{% static 'img/pordefecto.jpg' %}" alt="archivo por defecto">
+                            {% endif %} 
+                    </div>
+                  <div class="card-content">
+                    <span class="card-title black-text">{{ perfil.username }}</span>
+                  </div>
+                  <div class="card-action">
+                    {% if request.user == perfil%}
+                            <a href="{% url 'editar_perfil' %}">Editar</a>
+                    {% else %}
+                        {% if siguiendo%}
+                            <a href="{% url 'seguir_perfil' perfil.id%}">Dejar Seguir</a>
+                        {% else %}
+                            <a href="{% url 'seguir_perfil' perfil.id%}">Seguir</a>
+                        {% endif %}
+                    {% endif %}
+                  </div>
+                </div>
+              </div>        
     </div>
 
 
 
 
 
-    
+
+    <div class="row">
+        <div class="divider"></div>
+    </div>
+
+    <div class="row">
+            <h5>Posts: </h5>
+
+    <div class="row">
+        {% include 'post/grid_post.html' with posts=perfil.post_creados.all %}
+        
+    </div>
+
+    <div class="row">
+        <div class="divider"></div>
+    </div>   
 
 
-
-        <div class="row seguidores">
-            <h3>Seguidores</h3>
-            <ul>
-                
-            {% for seguidor in perfil.seguidores.all %}
-                <li>
-                    {{ seguidor.username }}
-                </li>
-            {% endfor %}
-            </ul>
+    <div class="row seguidores">
+        <div class="col s6">
+            <h5>Seguidores: {{perfil.seguidores.count}}</h5>        
         </div>
-
-        <div class="row seguidos">
-                
-            <h3>Seguidos</h3>
-            <ul>
-            {% for seguido in perfil.seguidos.all %}
-               <li>
-                   {{ seguido.username }}
-               </li> 
-            {% endfor %}            
-            </ul>
+        <div class="col s6">
+            <h5>Seguidos: {{perfil.seguidos.count}}</h5>    
         </div>
+    </div>
+
 
 
 {% endblock %}

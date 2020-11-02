@@ -1,3 +1,7 @@
+.profile-img-container{
+    margin-top: 20px;
+}
+
 .comentarios, .calificacion-box, .opciones-box{
     border: solid 1px lightgrey;
     border-radius: 3px;
