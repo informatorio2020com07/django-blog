@@ -8,7 +8,10 @@
 
 
     <div class="row">
+        {% if search_form %}
         {% include 'post/search_form.html' with search_form=search_form %}        
+
+        {% endif %}
     </div>
     <div class="row">
         {% include 'post/grid_post.html' with posts=posts %}     

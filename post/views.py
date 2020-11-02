@@ -31,7 +31,6 @@ def index(request):
         posts= posts.order_by("-fecha_creado")
 
 
-    categorias = Categoria.objects.all()
     contexto = {"posts":posts,
                 "search_form":search_form,
                 }
@@ -150,5 +149,11 @@ def show_categoria(request,id):
     }
     return render(request, "post/categoria/show_categoria.html",contexto)
 
+@login_required
 def feed(request):
-    return redirect("index")
+    seguidos = request.user.seguidos.all()
+    posts = Post.objects.filter(usuario__in=seguidos.all())
+    contexto = {
+        "posts":posts,
+        }
+    return render(request, "post/index.html",contexto)
