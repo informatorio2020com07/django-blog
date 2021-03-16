@@ -129,3 +129,16 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 LOGIN_URL = "iniciar_sesion"
 
 AUTH_USER_MODEL = "cuenta.Perfil"
+
+
+#emails
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+
+EMAIL_HOST_USER = "axelinfo2021@gmail.com"
+EMAIL_HOST_PASSWORD = "Clave#1234"
+
+EMAIL_USE_TLS = True

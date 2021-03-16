@@ -5,7 +5,7 @@ from csv import DictReader
 
 class Command(BaseCommand):
 
-    def __crear_categoria(self):
+    def __probando(self):
         for fila in DictReader(open("./categorias.csv")):
             cat = Categoria()
             cat.titulo = fila["titulo"]

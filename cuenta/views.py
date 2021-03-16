@@ -115,3 +115,22 @@ def seguir_perfil(request, id):
     return redirect("ver_perfil", perfil_a_seguir.id)
 
 
+
+
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+
+
+def enviar_correo(request):
+    variable = "JUAN"
+    body = render_to_string("cuenta/plantilla_mail.html", {"nombre":variable})
+
+    email_message = EmailMessage(
+        subject = "Asunto email",
+        body= body,
+        to=["axelinfo2021@gmail.com"],
+    )
+    email_message.attach_file("")
+    email_message.content_subtype = "html"
+    email_message.send()
+    return redirect("index")
