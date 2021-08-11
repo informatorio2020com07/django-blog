@@ -68,9 +68,12 @@ def editar_password(request):
         return render(request, "cuenta/editar_password.html",{"form":form})
 
 def iniciar_sesion(request):
+    siguiente = request.GET.get("next", None)
+
     categorias = Categoria.objects.all()
     form = AuthenticationForm()
     if request.method == "POST":
+        siguiente = request.POST.get("next", None)
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
             username = form.cleaned_data["username"]
@@ -78,8 +81,11 @@ def iniciar_sesion(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request,user)
-                return redirect("index")
-    return render(request, "cuenta/login.html", {"form":form,"categorias":categorias,})
+                return redirect(siguiente)
+    return render(request, "cuenta/login.html", {
+        "form":form,
+        "categorias":categorias,
+        "siguiente":siguiente,})
 
 def cerrar_sesion(request):
     logout(request)

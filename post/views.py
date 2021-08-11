@@ -96,6 +96,8 @@ def comentar(request,id):
                 comentario.post = post
                 comentario.save()
                 return redirect("post", post.id)
+            else:
+                return redirect("post", post.id)
     else:
         return redirect("post", post.id)
 
